@@ -1,0 +1,36 @@
+import camion2.*
+import cosas2.*
+
+describe "Test camion 2" {
+  method initialize() {
+    bumblebee.cambiarForma(robot)
+    arena.peso(150)
+    bateria.cargarYDescargarMisiles() //Pone en true
+    paqueteLadrillos.cambiarCantidad(80)
+    embalaje.cambiarLoQueEnvuelve(paqueteLadrillos)
+    const cosasACargar = [bumblebee, arena, bateria, embalaje]
+    camion.cargarCosa(bumblebee)
+    camion.cargarCosa(arena)
+    camion.cargarCosa(bateria)
+    camion.cargarCosa(embalaje)
+  }
+  test "test de peso" {
+    //Bumblebee = 800 
+    //Arena = 150 - 10 de consecuencia de carga
+    //Bateria = 300
+    //Embalaje = 160
+    assert.equals(1000+ 800+ 140+ 300 + 160, camion.peso())
+  }
+
+  test "tests de pesos pares" {
+    assert.that(camion.todosLosPesosSonPares())
+  }
+
+  test "la cantidad total de bultos en el camion" {
+    //bumblebee = 2
+    //arena = 1
+    //bateria = 2
+    //embalaje = 2
+    assert.equals(7, camion.cantidadTotalDeBultos())
+  }
+}
